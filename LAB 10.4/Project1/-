@@ -1,0 +1,132 @@
+#include <iostream> | Arithmetic Mean: 0 | Geometric Mean: 0
+#include <fstream> | Arithmetic Mean: 0 | Geometric Mean: 0
+#include <sstream> | Arithmetic Mean: 0 | Geometric Mean: 0
+#include <vector> | Arithmetic Mean: 0 | Geometric Mean: 0
+#include <cmath> | Arithmetic Mean: 0 | Geometric Mean: 0
+#include <string> | Arithmetic Mean: 0 | Geometric Mean: 0
+ | Arithmetic Mean: 0 | Geometric Mean: 0
+using namespace std; | Arithmetic Mean: 0 | Geometric Mean: 0
+ | Arithmetic Mean: 0 | Geometric Mean: 0
+// Function to check if a string is a valid number | Arithmetic Mean: 0 | Geometric Mean: 0
+bool isNumber(const string& str) { | Arithmetic Mean: 0 | Geometric Mean: 0
+    if (str.empty()) return false; | Arithmetic Mean: 0 | Geometric Mean: 0
+    char* end; | Arithmetic Mean: 0 | Geometric Mean: 0
+    strtod(str.c_str(), &end); | Arithmetic Mean: 0 | Geometric Mean: 0
+    return (*end == '\0'); | Arithmetic Mean: 0 | Geometric Mean: 0
+} | Arithmetic Mean: 0 | Geometric Mean: 0
+ | Arithmetic Mean: 0 | Geometric Mean: 0
+// Function to calculate arithmetic mean | Arithmetic Mean: 0 | Geometric Mean: 0
+double calculateArithmeticMean(const vector<double>& numbers) { | Arithmetic Mean: 0 | Geometric Mean: 0
+    if (numbers.empty()) return 0.0; | Arithmetic Mean: 0 | Geometric Mean: 0
+ | Arithmetic Mean: 0 | Geometric Mean: 0
+    double sum = 0.0; | Arithmetic Mean: 0 | Geometric Mean: 0
+    for (double num : numbers) { | Arithmetic Mean: 0 | Geometric Mean: 0
+        sum += num; | Arithmetic Mean: 0 | Geometric Mean: 0
+    } | Arithmetic Mean: 0 | Geometric Mean: 0
+    return sum / numbers.size(); | Arithmetic Mean: 0 | Geometric Mean: 0
+} | Arithmetic Mean: 0 | Geometric Mean: 0
+ | Arithmetic Mean: 0 | Geometric Mean: 0
+// Function to calculate geometric mean | Arithmetic Mean: 0 | Geometric Mean: 0
+double calculateGeometricMean(const vector<double>& numbers) { | Arithmetic Mean: 0 | Geometric Mean: 0
+    if (numbers.empty()) return 0.0; | Arithmetic Mean: 0 | Geometric Mean: 0
+ | Arithmetic Mean: 0 | Geometric Mean: 0
+    double product = 1.0; | Arithmetic Mean: 0 | Geometric Mean: 0
+    for (double num : numbers) { | Arithmetic Mean: 0 | Geometric Mean: 0
+        if (num <= 0) return 0.0; // geometric mean only for positive numbers | Arithmetic Mean: 0 | Geometric Mean: 0
+        product *= num; | Arithmetic Mean: 0 | Geometric Mean: 0
+    } | Arithmetic Mean: 0 | Geometric Mean: 0
+    return pow(product, 1.0 / numbers.size()); | Arithmetic Mean: 1 | Geometric Mean: 1
+} | Arithmetic Mean: 0 | Geometric Mean: 0
+ | Arithmetic Mean: 0 | Geometric Mean: 0
+// Function to extract numbers from a line | Arithmetic Mean: 0 | Geometric Mean: 0
+vector<double> extractNumbers(const string& line) { | Arithmetic Mean: 0 | Geometric Mean: 0
+    vector<double> numbers; | Arithmetic Mean: 0 | Geometric Mean: 0
+    stringstream ss(line); | Arithmetic Mean: 0 | Geometric Mean: 0
+    string token; | Arithmetic Mean: 0 | Geometric Mean: 0
+ | Arithmetic Mean: 0 | Geometric Mean: 0
+    while (ss >> token) { | Arithmetic Mean: 0 | Geometric Mean: 0
+        if (isNumber(token)) { | Arithmetic Mean: 0 | Geometric Mean: 0
+            numbers.push_back(stod(token)); | Arithmetic Mean: 0 | Geometric Mean: 0
+        } | Arithmetic Mean: 0 | Geometric Mean: 0
+    } | Arithmetic Mean: 0 | Geometric Mean: 0
+    return numbers; | Arithmetic Mean: 0 | Geometric Mean: 0
+} | Arithmetic Mean: 0 | Geometric Mean: 0
+ | Arithmetic Mean: 0 | Geometric Mean: 0
+// Function to process the file | Arithmetic Mean: 0 | Geometric Mean: 0
+void processFile(const string& inputFile, const string& outputFile) { | Arithmetic Mean: 0 | Geometric Mean: 0
+    ifstream inFile(inputFile); | Arithmetic Mean: 0 | Geometric Mean: 0
+    ofstream outFile(outputFile); | Arithmetic Mean: 0 | Geometric Mean: 0
+ | Arithmetic Mean: 0 | Geometric Mean: 0
+    if (!inFile) { | Arithmetic Mean: 0 | Geometric Mean: 0
+        cout << "Error: Cannot open input file!\n"; | Arithmetic Mean: 0 | Geometric Mean: 0
+        return; | Arithmetic Mean: 0 | Geometric Mean: 0
+    } | Arithmetic Mean: 0 | Geometric Mean: 0
+ | Arithmetic Mean: 0 | Geometric Mean: 0
+    string line; | Arithmetic Mean: 0 | Geometric Mean: 0
+ | Arithmetic Mean: 0 | Geometric Mean: 0
+    while (getline(inFile, line)) { | Arithmetic Mean: 0 | Geometric Mean: 0
+        vector<double> numbers = extractNumbers(line); | Arithmetic Mean: 0 | Geometric Mean: 0
+ | Arithmetic Mean: 0 | Geometric Mean: 0
+        double arithmeticMean = calculateArithmeticMean(numbers); | Arithmetic Mean: 0 | Geometric Mean: 0
+        double geometricMean = calculateGeometricMean(numbers); | Arithmetic Mean: 0 | Geometric Mean: 0
+ | Arithmetic Mean: 0 | Geometric Mean: 0
+        // Write original line + results | Arithmetic Mean: 0 | Geometric Mean: 0
+        outFile << line | Arithmetic Mean: 0 | Geometric Mean: 0
+            << " | Arithmetic Mean: " << arithmeticMean | Arithmetic Mean: 0 | Geometric Mean: 0
+            << " | Geometric Mean: " << geometricMean << endl; | Arithmetic Mean: 0 | Geometric Mean: 0
+    } | Arithmetic Mean: 0 | Geometric Mean: 0
+ | Arithmetic Mean: 0 | Geometric Mean: 0
+    cout << "Processing completed. Check output file.\n"; | Arithmetic Mean: 0 | Geometric Mean: 0
+ | Arithmetic Mean: 0 | Geometric Mean: 0
+    inFile.close(); | Arithmetic Mean: 0 | Geometric Mean: 0
+    outFile.close(); | Arithmetic Mean: 0 | Geometric Mean: 0
+} | Arithmetic Mean: 0 | Geometric Mean: 0
+ | Arithmetic Mean: 0 | Geometric Mean: 0
+// Function to safely get file name from user | Arithmetic Mean: 0 | Geometric Mean: 0
+string getFileName(const string& message) { | Arithmetic Mean: 0 | Geometric Mean: 0
+    string fileName; | Arithmetic Mean: 0 | Geometric Mean: 0
+    cout << message; | Arithmetic Mean: 0 | Geometric Mean: 0
+    cin >> fileName; | Arithmetic Mean: 0 | Geometric Mean: 0
+    return fileName; | Arithmetic Mean: 0 | Geometric Mean: 0
+} | Arithmetic Mean: 0 | Geometric Mean: 0
+ | Arithmetic Mean: 0 | Geometric Mean: 0
+// Menu function | Arithmetic Mean: 0 | Geometric Mean: 0
+void showMenu() { | Arithmetic Mean: 0 | Geometric Mean: 0
+    cout << "\n===== MENU =====\n"; | Arithmetic Mean: 0 | Geometric Mean: 0
+    cout << "1. Process file\n"; | Arithmetic Mean: 0 | Geometric Mean: 0
+    cout << "2. Exit\n"; | Arithmetic Mean: 0 | Geometric Mean: 0
+    cout << "Choose an option: "; | Arithmetic Mean: 0 | Geometric Mean: 0
+} | Arithmetic Mean: 0 | Geometric Mean: 0
+ | Arithmetic Mean: 0 | Geometric Mean: 0
+int main() { | Arithmetic Mean: 0 | Geometric Mean: 0
+    int choice; | Arithmetic Mean: 0 | Geometric Mean: 0
+ | Arithmetic Mean: 0 | Geometric Mean: 0
+    do { | Arithmetic Mean: 0 | Geometric Mean: 0
+        showMenu(); | Arithmetic Mean: 0 | Geometric Mean: 0
+ | Arithmetic Mean: 0 | Geometric Mean: 0
+        // Input validation | Arithmetic Mean: 0 | Geometric Mean: 0
+        while (!(cin >> choice)) { | Arithmetic Mean: 0 | Geometric Mean: 0
+            cin.clear(); | Arithmetic Mean: 0 | Geometric Mean: 0
+            cin.ignore(10000, '\n'); | Arithmetic Mean: 0 | Geometric Mean: 0
+            cout << "Invalid input. Enter a number: "; | Arithmetic Mean: 0 | Geometric Mean: 0
+        } | Arithmetic Mean: 0 | Geometric Mean: 0
+ | Arithmetic Mean: 0 | Geometric Mean: 0
+        switch (choice) { | Arithmetic Mean: 0 | Geometric Mean: 0
+        case 1: { | Arithmetic Mean: 0 | Geometric Mean: 0
+            string inputFile = getFileName("Enter input file name: "); | Arithmetic Mean: 0 | Geometric Mean: 0
+            string outputFile = getFileName("Enter output file name: "); | Arithmetic Mean: 0 | Geometric Mean: 0
+ | Arithmetic Mean: 0 | Geometric Mean: 0
+            processFile(inputFile, outputFile); | Arithmetic Mean: 0 | Geometric Mean: 0
+            break; | Arithmetic Mean: 0 | Geometric Mean: 0
+        } | Arithmetic Mean: 0 | Geometric Mean: 0
+        case 2: | Arithmetic Mean: 0 | Geometric Mean: 0
+            cout << "Exiting program...\n"; | Arithmetic Mean: 0 | Geometric Mean: 0
+            break; | Arithmetic Mean: 0 | Geometric Mean: 0
+        default: | Arithmetic Mean: 0 | Geometric Mean: 0
+            cout << "Invalid option. Try again.\n"; | Arithmetic Mean: 0 | Geometric Mean: 0
+        } | Arithmetic Mean: 0 | Geometric Mean: 0
+ | Arithmetic Mean: 0 | Geometric Mean: 0
+    } while (choice != 2); | Arithmetic Mean: 0 | Geometric Mean: 0
+ | Arithmetic Mean: 0 | Geometric Mean: 0
+    return 0; | Arithmetic Mean: 0 | Geometric Mean: 0
+} | Arithmetic Mean: 0 | Geometric Mean: 0
