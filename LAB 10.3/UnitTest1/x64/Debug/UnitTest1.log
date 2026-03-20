@@ -1,0 +1,7 @@
+﻿  UnitTest1.cpp
+D:\LAB 10.3\UnitTest1\UnitTest1.cpp(12,11): error C2870: 'UnitTestFriends': a namespace definition must appear either at file scope or immediately within another namespace definition
+  (compiling source file '/UnitTest1.cpp')
+  
+D:\LAB 10.3\Project1\Source.cpp(163,12): error C1075: '{': no matching token found
+  (compiling source file '/UnitTest1.cpp')
+  
